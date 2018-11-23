@@ -1,6 +1,6 @@
 window.addEventListener('load', () => {
   // Chat platform
- 
+
   const chatTemplate = Handlebars.compile($('#chat-template').html());
   const chatContentTemplate = Handlebars.compile($('#chat-content-template').html());
   const chatEl = $('#chat');
@@ -64,11 +64,14 @@ window.addEventListener('load', () => {
     // eslint-disable-next-line no-console
     const id = webrtc.getDomId(peer);
     const html = remoteVideoTemplate({ id });
+    /*
     if (remoteVideosCount === 0) {
       remoteVideosEl.html(html);
     } else {
       remoteVideosEl.append(html);
     }
+    */
+    remoteVideosEl.append(html);
     $(`#${id}`).html(video);
     $(`#${id} video`).addClass('ui image medium'); // Make video element responsive
     remoteVideosCount += 1;

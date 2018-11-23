@@ -67,19 +67,19 @@
         </h4>
       </div>
       <!--canvas-->
-      
-       <canvas id="myCanvas" width="1000" height="500" style="border:2px solid #d3d3d3;"></canvas>
-	   <button onclick="myFunction()">Click me</button>
-	   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.5/socket.io.min.js"></script>
-       <script type="text/javascript" src="script/paint.js"></script>
-
-      <!--49.159.173.38   
+    <canvas id="myCanvas" width="800" height="500" style="border:2px solid #d3d3d3;"></canvas>
+    <iframe src="http://140.136.150.93:3000/note/DbDxbl/lejX4b?p=frame" width="300" height="500" scrolling="yes"  align=right></iframe>
+	  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.5/socket.io.min.js"></script>
+    <button onclick="myFunction()" >Click me</button>
+    <script type="text/javascript" src="script/paint.js"></script>
+      <!--49.159.173.38
 	 http://[YOUR IP]:1235/socket.io/socket.io.js -->
     </div>
 
     <!-- Remote Cameras -->
     <h3 class="ui center aligned header">Remote Cameras</h3>
     <div id="remote-videos" class="ui stackable grid">
+      <!--
       <div class="four wide column">
         <img class="ui centered medium image" src="images/image.png">
       </div>
@@ -92,6 +92,7 @@
       <div class="four wide column">
         <img class="ui centered medium image" src="images/image.png">
       </div>
+    -->
     </div>
   </div>
 
@@ -102,7 +103,7 @@
       <img class="ui centered medium image" src="images/image.png">
     </div>
   </script>
-	
+
    <!-- Chat Content Template -->
 <script id="chat-content-template" type="text/x-handlebars-template">
   {{#each messages}}
@@ -153,5 +154,6 @@
   <script src="scripts/handlebars/dist/handlebars.min.js "></script>
   <script src="scripts/simplewebrtc/out/simplewebrtc-with-adapter.bundle.js"></script>
   <script src="js/app.js"></script>
+
 </body>
 </html>

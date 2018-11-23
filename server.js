@@ -5,7 +5,7 @@ var app = express();
 var https = require('https');
 
 var port = process.env.PORT ||3232;
-var ip = '192.168.0.102';
+var ip = '140.136.150.93';
 // Set public folder as root
 
 
@@ -41,10 +41,10 @@ var io = require('socket.io').listen(server);
 io.on('connection', function (socket){
 	var curRoomName  = "大廳";
 	var room2;
-	
+
     socket.on('certain', function(roomName){
 		curRoomName = roomName;
-    });	
+    });
 	socket.join(curRoomName);
 	socket.on('roomlist', function(key){
 		io.emit('Roomlist', roomidlist);

@@ -1,5 +1,5 @@
 
-var socket = io.connect('https://192.168.0.102:3232', {secure: true});
+var socket = io.connect('https://140.136.150.93:3232', {secure: true});
 
 //參數
 var c = document.getElementById("myCanvas");
@@ -22,9 +22,9 @@ var image1 = 'https://image.cache.storm.mg/styles/smg-800x533-fp/s3/media/image/
 		s2=image2;
 		var img = new Image;
 		img.onload = function() {
-			var rw = img.width / c.width; 
+			var rw = img.width / c.width;
 			var rh = img.height / c.height;
-    
+
 			if (rw > rh)
 			{
 				newh = Math.round(img.height / rw);
@@ -34,12 +34,12 @@ var image1 = 'https://image.cache.storm.mg/styles/smg-800x533-fp/s3/media/image/
 			{
 				neww = Math.round(img.width / rh);
 				newh = c.height;
-			}  
+			}
 			var x = (c.width - neww) / 2;
-			var y = (c.height - newh) / 2;  
+			var y = (c.height - newh) / 2;
 			ctx.drawImage(img, x, y, neww, newh);
 		};
-		img.src = image1;			
+		img.src = image1;
 	});
 const color = ["red","blue","yellow","black"];
 var drawmode = false;
@@ -103,10 +103,10 @@ function getcolor(e) {
     socket.on('Room2', function(state,roomName,username){
 		state2=state;
 		roomName2=roomName;
-		username2=username;	
-		console.log(username2+" "+state2+" "+roomName2);	
+		username2=username;
+		console.log(username2+" "+state2+" "+roomName2);
 	});
-    socket.on('Room3', function(Data){	
+    socket.on('Room3', function(Data){
 	});
 	socket.emit('certain', roomName2);
 	socket.emit('roomlist', 38);
@@ -120,7 +120,7 @@ function getcolor(e) {
 	console.log(username3+" "+state3+" "+roomName3);
 	console.log(list2);
   return colorT;
-  
+
 }
 //畫畫
 function mouseDown(e){
@@ -136,7 +136,7 @@ function mouseUp(e) {
   drawLine(current.x-150, current.y-800, event.pageX-150, event.pageY-800, color1, size, true);
   ctx.closePath();
   drawmode = false ;
-	
+
 }
 function onMouseMove(e){
 
@@ -161,16 +161,16 @@ socket.on('drawing', senddata);
 
 console.log(list2);
 function drawLine(x0, y0, x1, y1, colorP, size, emit){
-	
+
     ctx.beginPath();
     ctx.moveTo(x0, y0);
     ctx.lineTo(x1, y1);
     ctx.strokeStyle = color[colorP];
     ctx.lineWidth = size;
     ctx.stroke();
-	
+
 		if (!emit) { return; }
-		
+
 		socket.emit('drawing', {
 		x0: x0 ,
 		y0: y0 ,
@@ -179,8 +179,8 @@ function drawLine(x0, y0, x1, y1, colorP, size, emit){
 		color: colorP,
 		size:size,
 		},roomName2);
-	
-	console.log(roomName2);	
+
+	console.log(roomName2);
   }
 	function myFunction() {	//圖片顯示
 		socket.emit('image',image1);
@@ -188,9 +188,9 @@ function drawLine(x0, y0, x1, y1, colorP, size, emit){
 			s2=image2;
 			var img = new Image;
 			img.onload = function(){
-				var rw = img.width / c.width; 
+				var rw = img.width / c.width;
 				var rh = img.height / c.height;
-    
+
 				if (rw > rh)
 				{
 					newh = Math.round(img.height / rw);
@@ -200,18 +200,18 @@ function drawLine(x0, y0, x1, y1, colorP, size, emit){
 				{
 					neww = Math.round(img.width / rh);
 					newh = c.height;
-				}  
+				}
 					var x = (c.width - neww) / 2;
-					var y = (c.height - newh) / 2;  
+					var y = (c.height - newh) / 2;
 					ctx.drawImage(img, x, y, neww, newh);
 				};
-				img.src = image1;			
+				img.src = image1;
 		});
 		var img = new Image;
 		img.onload = function() {
-			var rw = img.width / c.width; 
+			var rw = img.width / c.width;
 			var rh = img.height / c.height;
-    
+
 			if (rw > rh)
 			{
 				newh = Math.round(img.height / rw);
@@ -221,13 +221,13 @@ function drawLine(x0, y0, x1, y1, colorP, size, emit){
 			{
 				neww = Math.round(img.width / rh);
 				newh = c.height;
-			}  
+			}
 			var x = (c.width - neww) / 2;
-			var y = (c.height - newh) / 2;  
+			var y = (c.height - newh) / 2;
 			ctx.drawImage(img, x, y, neww, newh);
 		};
 		img.src = image1;
-	} 
+	}
 
  function throttle(callback, delay) {
     var previousCall = new Date().getTime();
