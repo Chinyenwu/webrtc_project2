@@ -7,13 +7,15 @@
   <link rel="stylesheet" href="scripts/semantic-ui-css/semantic.min.css">
   <link href="https://fonts.googleapis.com/css?family=Satisfy" rel="stylesheet">
   <link rel="stylesheet" href="style/index_style.css">
+  <!--C:\webrtc_project2-master\node_modules\cropperjs\dist-->
   <title>SimpleWebRTC </title>
-  <!--
+
   <style>
     html { margin-top: 20px; }
     #chat-content { height: 180px;  overflow-y: scroll; }
+    video {height:250px; width: 250px;}
   </style>
-  -->
+
 </head>
 <body>
   <!-- Main Content -->
@@ -67,11 +69,14 @@
         </h4>
       </div>
       <!--canvas-->
+    <script src="script/domvas.js"></script>
+    <script src="script/iframe2image.js"></script>
     <canvas id="myCanvas" width="800" height="500" style="border:2px solid #d3d3d3;"></canvas>
-    <iframe src="http://140.136.150.93:3000/note/DbDxbl/lejX4b?p=frame" width="300" height="500" scrolling="yes"  align=right></iframe>
-	  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.5/socket.io.min.js"></script>
+    <iframe id="crop" name="crop" src="http://140.136.150.93:3000/note/DbDxbl/lejX4b?p=frame" width="300" height="500" scrolling="yes"  align=right src="image-rotator.html"></iframe>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.5/socket.io.min.js"></script>
     <button onclick="myFunction()" >Click me</button>
-    <script type="text/javascript" src="script/paint.js"></script>
+    <script type="text/javascript" src="script/paint.js">
+    </script>
       <!--49.159.173.38
 	 http://[YOUR IP]:1235/socket.io/socket.io.js -->
     </div>
@@ -100,7 +105,6 @@
   <!-- Remote Video Template -->
   <script id="remote-video-template" type="text/x-handlebars-template">
     <div id="{{ id }}" class="four wide column">
-      <img class="ui centered medium image" src="images/image.png">
     </div>
   </script>
 
