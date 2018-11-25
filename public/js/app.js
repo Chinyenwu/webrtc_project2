@@ -73,7 +73,6 @@ window.addEventListener('load', () => {
     */
     remoteVideosEl.append(html);
     $(`#${id}`).html(video);
-    $(`#${id} video`).addClass('ui image medium'); // Make video element responsive
     remoteVideosCount += 1;
   });
 
