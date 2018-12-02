@@ -1,3 +1,5 @@
+const axios = require('axios');
+
 var express = require('express');
 var fs = require('fs');
 var app = express();
@@ -8,13 +10,18 @@ var port = process.env.PORT ||3232;
 var ip = '140.136.150.93';
 // Set public folder as root
 
-
-
-
 app.use(express.static('public'));
 
 // Provide access to node_modules folder from the client-side
 app.use('/scripts', express.static(`${__dirname}/node_modules/`));
+//http://140.136.150.93/upload/index/
+axios.get("http://140.136.150.93/upload/GET/notedrop/")
+.then(function (response) {
+  console.log(response.data);
+})
+.catch(function (error) {
+  console.log(error);
+});
 
 // Redirect all traffic to index.html
 app.use((req, res) => res.sendFile(`${__dirname}/public/index.html`));
@@ -35,6 +42,12 @@ var server=https.createServer({
 }, app).listen(port,ip,function ()  {
   console.info('listen on %s:%d',ip,port);
 });
+
+/*
+var server=https.createServer(app).listen(port,ip,function ()  {
+  console.info('listen on %s:%d',ip,port);
+});
+*/
 
 var io = require('socket.io').listen(server);
 
@@ -91,7 +104,6 @@ io.on('connection', function (socket){
 
 	console.log("curent is "+curRoomName);
 });
-
 
 
 function isRoomExist (roomName, roomList) {
