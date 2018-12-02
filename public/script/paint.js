@@ -1,6 +1,6 @@
 
 var socket = io.connect('https://140.136.150.93:3232', {secure: true});
-
+//var socket = io();
 //參數
 var c = document.getElementById("myCanvas");
 var ctx = c.getContext("2d");
@@ -16,10 +16,20 @@ var roomName3;
 var username3;
 var list2=[] ;
 var i;
-var s2;
-var image1 = 'https://image.cache.storm.mg/styles/smg-800x533-fp/s3/media/image/2016/05/19/20160519-114102_U3927_M157635_ebfc.jpg?itok=jAhzdKbn';  //把要傳的url丟這裡
-	socket.on('image2',function(image2) { //接收圖片socket
-		s2=image2;
+var imagebig;
+//上傳圖片的程式
+var ls = window.localStorage,
+  photo = document.getElementById('uploadImage'),
+  fileReader = new FileReader(),
+  img = new Image(), lastImgData = ls.getItem('image');
+  fileReader.onload = function (e) {
+  console.log(typeof e.target.result, e.target.result instanceof Blob);
+  img.src = e.target.result;
+  console.log(e.target.result);
+  socket.emit('image',e.target.result);
+  imagebig = e.target.result;
+  };
+  socket.on('image2',function(image2) { //接收圖片socket
 		var img = new Image;
 		img.onload = function() {
 			var rw = img.width / c.width;
@@ -39,9 +49,35 @@ var image1 = 'https://image.cache.storm.mg/styles/smg-800x533-fp/s3/media/image/
 			var y = (c.height - newh) / 2;
 			ctx.drawImage(img, x, y, neww, newh);
 		};
-		img.src = image1;
+		img.src = image2;
 	});
-const color = ["red","blue","yellow","black"];
+  img.onload = function() {
+    var rw = img.width / c.width;
+    var rh = img.height / c.height;
+
+    if (rw > rh)
+    {
+        newh = Math.round(img.height / rw);
+        neww = c.width;
+    }
+    else
+    {
+        neww = Math.round(img.width / rh);
+        newh = c.height;
+    }
+    var x = (c.width - neww) / 2;
+    var y = (c.height - newh) / 2;
+    drawImage(img, x, y, neww, newh);
+  };
+  photo.addEventListener('change', function() {
+    var file = this.files[0];
+    return file && fileReader.readAsDataURL(file);
+  });
+/*
+ctx.fillStyle = "white";
+ctx.fillRect(0, 0, canvas.width, canvas.height);
+*/
+const color = ["#ff4d4d","  #4169E1","  #FFA500","#333333"];
 var drawmode = false;
 for (let i=0 ; i<4 ; i++ )
   {
@@ -74,18 +110,29 @@ window.addEventListener('load',function(){
 		roomName3=roomName;
 		username3=username;
 	});
+
+function LeaveButton() {
+console.log('disconnect button pressed');
+//window.location.reload();
+socket.emit('DC',roomName3);
+window.location.reload();
+}
+
 window.addEventListener('resize', onResize, false);
 onResize();
+
 function getcolor(e) {
-	//選顏色
+//選顏色
     var xPosition = event.pageX;
     var yPosition = event.pageY;
     var xCanvas = myCanvas.offsetLeft - myCanvas.scrollLeft + myCanvas.clientLeft;
     var yCanvas = myCanvas.offsetTop - myCanvas.scrollLeft + myCanvas.clientTop;
+    //console.log(xCanvas+ "     "+yCanvas);
     let colorT;
   if ( xPosition > xCanvas && xPosition<50+xCanvas && yPosition >yCanvas && yPosition<200+yCanvas )
     {
     colorT = parseInt((yPosition-yCanvas)/50);
+    //console.log(color[colorT]);
     }
   if(xPosition > xCanvas && xPosition < 60+xCanvas && yPosition > 200+yCanvas && yPosition < 250+yCanvas)
   {
@@ -98,7 +145,45 @@ function getcolor(e) {
   }
   if(xPosition > xCanvas && xPosition < 60+xCanvas && yPosition > 250+yCanvas && yPosition < 300+yCanvas)
   {
-	myFunction()
+	socket.emit('image',imagebig);
+	socket.on('image2',function(image2) { //接收圖片socket
+		var img = new Image;
+		img.onload = function() {
+			var rw = img.width / c.width;
+			var rh = img.height / c.height;
+
+			if (rw > rh)
+			{
+				newh = Math.round(img.height / rw);
+				neww = c.width;
+			}
+			else
+			{
+				neww = Math.round(img.width / rh);
+				newh = c.height;
+			}
+			var x = (c.width - neww) / 2;
+			var y = (c.height - newh) / 2;
+			ctx.drawImage(img, x, y, neww, newh);
+		};
+		img.src = image2;
+	})
+    var rw = img.width / c.width;
+    var rh = img.height / c.height;
+
+      if (rw > rh)
+        {
+          newh = Math.round(img.height / rw);
+          neww = c.width;
+        }
+      else
+        {
+          neww = Math.round(img.width / rh);
+          newh = c.height;
+        }
+      var x = (c.width - neww) / 2;
+      var y = (c.height - newh) / 2;
+    drawImage(img, x, y, neww, newh);
   }
     socket.on('Room2', function(state,roomName,username){
 		state2=state;
@@ -107,6 +192,7 @@ function getcolor(e) {
 		console.log(username2+" "+state2+" "+roomName2);
 	});
     socket.on('Room3', function(Data){
+
 	});
 	socket.emit('certain', roomName2);
 	socket.emit('roomlist', 38);
@@ -130,10 +216,11 @@ function mouseDown(e){
   current.y =  event.pageY;
 }
 function mouseUp(e) {
-
+  var xCanvas = myCanvas.offsetLeft - myCanvas.scrollLeft + myCanvas.clientLeft;
+  var yCanvas = myCanvas.offsetTop - myCanvas.scrollLeft + myCanvas.clientTop;
   color1 = getcolor(e);
   console.log(color[color1]);
-  drawLine(current.x-150, current.y-800, event.pageX-150, event.pageY-800, color1, size, true);
+  drawLine(current.x, current.y-yCanvas, event.pageX, event.pageY-yCanvas, color1, size, true);
   ctx.closePath();
   drawmode = false ;
 
@@ -141,19 +228,19 @@ function mouseUp(e) {
 function onMouseMove(e){
 
   var xCanvas = myCanvas.offsetLeft - myCanvas.scrollLeft + myCanvas.clientLeft;
+  var yCanvas = myCanvas.offsetTop - myCanvas.scrollLeft + myCanvas.clientTop;
   console.log("drawmode"+drawmode);
   if(event.pageX < 50 + xCanvas  )
     drawmode = false;
    if(event.pageX > 50+xCanvas && drawmode== true)
     {
-    drawLine(current.x-150, current.y-800, event.pageX-150, event.pageY-800, color1, size, true);
+    drawLine(current.x, current.y-yCanvas, event.pageX, event.pageY-yCanvas, color1, size, true);
     current.x = event.pageX;
     current.y = event.pageY;
     }
   clearRect = false;
 
   }
- //傳畫畫資料
  function senddata(data){
   drawLine(data.x0 , data.y0 , data.x1 , data.y1 , data.color ,data.size);
  }
@@ -182,52 +269,17 @@ function drawLine(x0, y0, x1, y1, colorP, size, emit){
 
 	console.log(roomName2);
   }
-	function myFunction() {	//圖片顯示
-		socket.emit('image',image1);
-		socket.on('image2',function(image2) {
-			s2=image2;
-			var img = new Image;
-			img.onload = function(){
-				var rw = img.width / c.width;
-				var rh = img.height / c.height;
 
-				if (rw > rh)
-				{
-					newh = Math.round(img.height / rw);
-					neww = c.width;
-				}
-				else
-				{
-					neww = Math.round(img.width / rh);
-					newh = c.height;
-				}
-					var x = (c.width - neww) / 2;
-					var y = (c.height - newh) / 2;
-					ctx.drawImage(img, x, y, neww, newh);
-				};
-				img.src = image1;
-		});
-		var img = new Image;
-		img.onload = function() {
-			var rw = img.width / c.width;
-			var rh = img.height / c.height;
 
-			if (rw > rh)
-			{
-				newh = Math.round(img.height / rw);
-				neww = c.width;
-			}
-			else
-			{
-				neww = Math.round(img.width / rh);
-				newh = c.height;
-			}
-			var x = (c.width - neww) / 2;
-			var y = (c.height - newh) / 2;
-			ctx.drawImage(img, x, y, neww, newh);
-		};
-		img.src = image1;
-	}
+function drawImage(img, x, y, neww, newh) {//圖片顯示
+   var dataUrl;
+   var width = c.width;
+   ctx.drawImage(img, x, y, neww, newh);
+   dataUrl = canvas.toDataURL();
+   console.log(dataUrl);
+   document.getElementById('imageData').href = dataUrl;
+   ls.setItem('image', img.src);
+}
 
  function throttle(callback, delay) {
     var previousCall = new Date().getTime();

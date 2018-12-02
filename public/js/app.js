@@ -1,3 +1,5 @@
+const getip = Handlebars.compile($('#ipget').html());
+var s=1;
 window.addEventListener('load', () => {
   // Chat platform
 
@@ -11,6 +13,10 @@ window.addEventListener('load', () => {
   // Local Video
   const localImageEl = $('#local-image');
   const localVideoEl = $('#local-video');
+  const canvass = $('#myCanvas');
+  var theListt = $('#theList');
+  const iframee = $('#crop');
+  const myfromm = $('#myfrom');
   // local canvas
   //const locaCanvasE1 = $('#myCanvas');
 	var state3;
@@ -23,13 +29,16 @@ window.addEventListener('load', () => {
 
   // Hide cameras until they are initialized
   localVideoEl.hide();
-
+  canvass.hide();
+  iframee.hide();
+  myfromm.hide();
+  theListt.hide();
   // Add validation rules to Create/Join Room Form
   formEl.form({
     fields: {
       roomName: 'empty',
       username: 'empty',
-	  theme: 'empty'
+	    theme: 'empty'
     },
   });
 	socket.on('back', function(state,roomName,username){
@@ -103,6 +112,8 @@ window.addEventListener('load', () => {
 
   // Display Chat Interface
   const showChatRoom = (room) => {
+    canvass.show();
+    myfromm.show();
     formEl.hide();
     const html = chatTemplate({ room });
     chatEl.html(html);
@@ -133,6 +144,9 @@ window.addEventListener('load', () => {
     // eslint-disable-next-line no-console
     //console.info(`Creating new room: ${roomName}`);
     webrtc.createRoom(roomName, (err, name) => {
+      //canvass.show();
+      theListt.show();
+      iframee.show();
       formEl.form('clear');
       showChatRoom(name);
       postMessage(`${username} created chatroom`);
@@ -142,12 +156,31 @@ window.addEventListener('load', () => {
 		console.log(roomName3);
 	  }
     });
+    //http://140.136.150.93:3000/note/mbkR5a/bk5jxe?p=frame
+    var i=0;
+    axios.get("http://140.136.150.93/upload/GET/notedrop/")
+    .then((response)=>{
+      for(i=0;i< response.data.length;i++){
+        var value = response.data[i].noteid;
+        console.log(response.data);
+        var value2 = response.data[i].notelistid;
+        var value3 = response.data[i].title;
+        var url = "http://140.136.150.93:3000/note/"+value+"/"+value2+"?p=frame";
+        theListt.append(new Option(value,url));
+      }
+      console.log(response.data);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+    //response.data[0].noteid
   };
 
   // Join existing Chat Room
   const joinRoom = (roomName) => {
     // eslint-disable-next-line no-console
     //console.log(`Joining Room: ${roomName}`);
+    //canvass.show();
     webrtc.joinRoom(roomName);
     showChatRoom(roomName);
     postMessage(`${username} joined chatroom`);
@@ -164,12 +197,13 @@ window.addEventListener('load', () => {
     }
   });
 
+
   // Room Submit Button Handler
   $('.submit').on('click', (event) => {
     if (!formEl.form('is valid')) {
       return false;
     }
-    username = $('#username').val();
+  username = $('#username').val();
 	theme = $('#theme').val();
     const roomName = $('#roomName').val().toLowerCase();
     if (event.target.id === 'create-btn') {
@@ -180,3 +214,30 @@ window.addEventListener('load', () => {
     return false;
   });
 });
+
+function printurl(index){
+    $('#crop').remove();
+    var context = { "ip" : index};
+    var html = getip(context);
+    $('#sideBside').append(html);
+    console.log(index);
+}
+
+function myFunction() {
+    document.getElementById("myDropdown").classList.toggle("show");
+}
+
+function filterFunction() {
+    var input, filter, ul, li, a, i;
+    input = document.getElementById("myInput");
+    filter = input.value.toUpperCase();
+    div = document.getElementById("myDropdown");
+    a = div.getElementsByTagName("a");
+    for (i = 0; i < a.length; i++) {
+        if (a[i].innerHTML.toUpperCase().indexOf(filter) > -1) {
+            a[i].style.display = "";
+        } else {
+            a[i].style.display = "none";
+        }
+    }
+}

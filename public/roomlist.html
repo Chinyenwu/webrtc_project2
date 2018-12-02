@@ -8,7 +8,8 @@
 }
 
 #myInput {
-  background-image: url('/css/searchicon.png');
+  /*background-image: url('/css/searchicon.png');*/
+  background-color: #F5F5F5;
   background-position: 10px 10px;
   background-repeat: no-repeat;
   width: 100%;
@@ -92,7 +93,7 @@ var search1=0,search2=0;
     var row = header.insertRow(0);
     var celll = row.insertCell(0);
 	var celll2 = row.insertCell(1);
-    celll.innerHTML = "<b>RoomName</b>";
+  celll.innerHTML = "<b>RoomName</b>";
 	celll2.innerHTML = "<b>theme</b>";
 	for(var i = 0; i < array2.length; i++)
 	{
@@ -108,7 +109,7 @@ var search1=0,search2=0;
 			}
 		else if(j==1){
 			cell.innerHTML = themelist2[i];
-			}		
+			}
 		}
 	}
 function roomlist() {
@@ -141,7 +142,7 @@ function roomlist() {
 			}
 		else if(j==1){
 			cell.innerHTML = themelist2[i];
-			}		
+			}
 		}
 	}
 }
@@ -162,7 +163,7 @@ function myFunction3() {
       } else {
         tr[i].style.display = "none";
       }
-    }       
+    }
   }
 }
 

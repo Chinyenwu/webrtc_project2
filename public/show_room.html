@@ -9,8 +9,11 @@
 * {
   box-sizing: border-box;
 }
+body{
+  background-color: #F5F5F5;
+}
 #header {
-	background-image: url("/pic/banner.jpg");
+	/*background-image: url("/pic/banner.jpg");*/
 	background-size: cover;
 	text-align: center;
 	position: relative;
@@ -18,23 +21,24 @@
 }
 	#header.alt h1 {
 	font-size: 4em;
-	color : Azure;
+	color : black;
+  /* Azure */
 	padding: 0 0.5em 0.25em 0.5em;
 	border-bottom: solid 2px #ffffff;
 	font-weight: 200;
-	font-family: 'Pacifico', cursive; 
+	font-family: 'Pacifico', cursive;
 	}
 
 	#header.alt p {
 	text-transform: uppercase;
-	color : Azure;
+	color : black;
 	letter-spacing: 0.325rem;
 	font-weight: 400;
 	font-size: 1em;
 	padding: 0 1.25em;
 	}
 #scene {
-	background-image: url("/pic/pic03.jpg");
+	/*background-image: url("/pic/pic03.jpg");*/
 }
 #myInput {
   background-position: 10px 10px;
@@ -44,7 +48,7 @@
   padding: 12px 20px 12px 40px;
   border: 1px solid #ddd;
   margin-bottom: 12px;
-  font-family: 'Pacifico', cursive; 
+  font-family: 'Pacifico', cursive;
 }
 #myInput2 {
   background-position: 10px 10px;
@@ -54,7 +58,7 @@
   padding: 12px 20px 12px 40px;
   border: 1px solid #ddd;
   margin-bottom: 12px;
-  font-family: 'Pacifico', cursive; 
+  font-family: 'Pacifico', cursive;
 }
 #myTable {
   border-collapse: collapse;
@@ -141,7 +145,7 @@ function roomlist() {
 			}
 		else if(j==1){
 			cell.innerHTML = themelist2[i];
-			}		
+			}
 		}
 	}
 }
@@ -162,7 +166,7 @@ function myFunction3() {
       } else {
         tr[i].style.display = "none";
       }
-    }       
+    }
   }
 }
 

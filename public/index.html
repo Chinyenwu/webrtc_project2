@@ -15,9 +15,9 @@
     #chat-content { height: 180px;  overflow-y: scroll; }
     video {height:250px; width: 250px;}
   </style>
-
 </head>
 <body>
+
   <!-- Main Content -->
   <div class="ui container">
     <h1 id = "simp-web">
@@ -56,57 +56,56 @@
       </div>
       <!-- Chat Room Messages -->
       <div id="chat"></div>
-    </div>
+      </div>
+      <!-- Local Camera -->
+    <!-- TEMPLATES -->
+      <!-- Remote Video Template -->
   </div>
   <!-- End of Chat Section -->
-
-        <!-- Local Camera -->
-      <div class="ui two wide column">
-        <img  id="local-image" class="ui large image" src="images/image.png">
-        <video id="local-video" class="ui large image"  autoplay></video>
-        <h4 class="ui center aligned header" style="margin:0;">
-          Local Camera
-        </h4>
-      </div>
       <!--canvas-->
-    <script src="script/domvas.js"></script>
-    <script src="script/iframe2image.js"></script>
-    <canvas id="myCanvas" width="800" height="500" style="border:2px solid #d3d3d3;"></canvas>
-    <iframe id="crop" name="crop" src="http://140.136.150.93:3000/note/DbDxbl/lejX4b?p=frame" width="300" height="500" scrolling="yes"  align=right src="image-rotator.html"></iframe>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.5/socket.io.min.js"></script>
-    <button onclick="myFunction()" >Click me</button>
-    <script type="text/javascript" src="script/paint.js">
-    </script>
       <!--49.159.173.38
 	 http://[YOUR IP]:1235/socket.io/socket.io.js -->
     </div>
+    <div class="ui six wide column">
 
-    <!-- Remote Cameras -->
-    <h3 class="ui center aligned header">Remote Cameras</h3>
-    <div id="remote-videos" class="ui stackable grid">
-      <!--
-      <div class="four wide column">
-        <img class="ui centered medium image" src="images/image.png">
+
+      <script id="remote-video-template" type="text/x-handlebars-template" align=center>
+        <div id="{{ id }}" >
+        </div>
+      </script>
+      <div id="remote-videos" class="ui stackable grid">
+        <video id="local-video"   autoplay></video>
       </div>
-      <div class="four wide column">
-        <img class="ui centered medium image" src="images/image.png">
-      </div>
-      <div class="four wide column">
-        <img class="ui centered medium image" src="images/image.png">
-      </div>
-      <div class="four wide column">
-        <img class="ui centered medium image" src="images/image.png">
-      </div>
-    -->
+      <h4 class="ui center aligned header" style="margin:0;">
+        Local Camera
+      </h4>
     </div>
+    <h3 class="ui center aligned header">Remote Cameras</h3>
+    <!-- Remote Cameras -->
   </div>
 
-<!-- TEMPLATES -->
-  <!-- Remote Video Template -->
-  <script id="remote-video-template" type="text/x-handlebars-template">
-    <div id="{{ id }}" class="four wide column">
-    </div>
+<!--http://140.136.150.93:3000/note/vbmOeY/lejvYe-->
+<!--canvas-->
+  <script src="script/domvas.js"></script>
+  <script src="script/iframe2image.js"></script>
+  <div id="sideBside">
+  <canvas id="myCanvas" width="800" height="500" style="border:2px solid #d3d3d3;" align="left">
+  </canvas>
+  <script id="ipget" type="text/x-handlebars-template">
+  <iframe id="crop" name="crop" src="{{ip}}" width="700" height="500" scrolling="yes" align="right" ></iframe>
   </script>
+
+  </div>
+  <select id="theList" width="100px" onChange="printurl(this.value);" >
+  </select>
+
+  <form action="/somewhere/to/upload" enctype="multipart/form-data" id = "myfrom"><!--上傳圖片的表單-->
+  <input id="uploadImage" type="file" name="photo" accept="image/*"/>
+  </form>
+
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.5/socket.io.min.js"></script>
+  <script type="text/javascript" src="script/paint.js"></script>
 
    <!-- Chat Content Template -->
 <script id="chat-content-template" type="text/x-handlebars-template">
@@ -149,7 +148,20 @@
     </div>
     <div id="post-btn" class="ui primary submit button">Send</div>
     <button class="ui violet button" onclick="LeaveButton()"> leave </button>
+    <div class="dropdown">
+  <button onclick="myFunction()" class="ui teal button">Dropdown</button>
+    <div id="myDropdown" class="dropdown-content">
+      <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
+      <a href="#about">About</a>
+      <a href="#base">Base</a>
+      <a href="#blog">Blog</a>
+      <a href="#contact">Contact</a>
+      <a href="#custom">Custom</a>
+      <a href="#support">Support</a>
+      <a href="#tools">Tools</a>
+    </div>
   </div>
+    </div>
 </script>
 
   <!-- Scripts -->
