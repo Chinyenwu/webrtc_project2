@@ -100,6 +100,10 @@ io.on('connection', function (socket){
 	socket.on('image',function(image2) {
 		io.in(curRoomName).emit('image2', image2);
 	});
+  socket.on('iframeroom',function(index) {
+		io.in(curRoomName).emit('iframeget', index);
+    console.log(index+" "+curRoomName);
+	});
 	io.emit('Roomlist3', roomidlist,themelist);
 
 	console.log("curent is "+curRoomName);
