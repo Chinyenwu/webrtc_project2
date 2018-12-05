@@ -114,6 +114,7 @@ window.addEventListener('load', () => {
   const showChatRoom = (room) => {
     canvass.show();
     myfromm.show();
+    iframee.show();
     formEl.hide();
     const html = chatTemplate({ room });
     chatEl.html(html);
@@ -146,7 +147,6 @@ window.addEventListener('load', () => {
     webrtc.createRoom(roomName, (err, name) => {
       //canvass.show();
       theListt.show();
-      iframee.show();
       formEl.form('clear');
       showChatRoom(name);
       postMessage(`${username} created chatroom`);
@@ -166,7 +166,7 @@ window.addEventListener('load', () => {
         var value2 = response.data[i].notelistid;
         var value3 = response.data[i].title;
         var url = "http://140.136.150.93:3000/note/"+value+"/"+value2+"?p=frame";
-        theListt.append(new Option(value,url));
+        theListt.append(new Option(value3,url));
       }
       console.log(response.data);
     })
@@ -221,10 +221,37 @@ function printurl(index){
     var html = getip(context);
     $('#sideBside').append(html);
     console.log(index);
+    socket.emit('iframeroom',index);
 }
-
+socket.on('iframeget', function(index){
+  $('#crop').remove();
+  var context = { "ip" : index};
+  var html = getip(context);
+  $('#sideBside').append(html);
+  console.log(index);
+  io.in(roomName).emit('iframeroom',index);
+});
 function myFunction() {
     document.getElementById("myDropdown").classList.toggle("show");
+    var myDropdownn = $('#myDropdown');
+    var i=0;
+    axios.get("http://140.136.150.93/upload/GET/notedrop/")
+    .then((response)=>{
+      for(i=0;i< response.data.length;i++){
+        var value = response.data[i].noteid;
+        //console.log(response.data);
+        var value2 = response.data[i].notelistid;
+        var value3 = response.data[i].title;
+        var url = "http://140.136.150.93:3000/note/"+value+"/"+value2+"?p=frame";
+        Option.onclick = printurl(value);
+        myDropdownn.append(new Option(value3,url));
+        //myDropdownn.append(new Option(value,url));
+      }
+      console.log(response.data);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
 }
 
 function filterFunction() {
@@ -232,7 +259,7 @@ function filterFunction() {
     input = document.getElementById("myInput");
     filter = input.value.toUpperCase();
     div = document.getElementById("myDropdown");
-    a = div.getElementsByTagName("a");
+    a = div.getElementsByTagName("option");
     for (i = 0; i < a.length; i++) {
         if (a[i].innerHTML.toUpperCase().indexOf(filter) > -1) {
             a[i].style.display = "";
