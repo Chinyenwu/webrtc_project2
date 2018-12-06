@@ -114,6 +114,41 @@ var socket1 = io();
 var array2;
 var themelist2;
 var search1=0,search2=0;
+
+document.getElementById("myTable").innerHTML = "";
+socket1.on('Roomlist3', function(roomidlist,themelist){
+  array2 = roomidlist;
+  themelist2 = themelist;
+});
+console.log(array2);
+console.log(themelist2);
+table = document.getElementById("myTable");
+  var header = table.createTHead();
+  var row = header.insertRow(0);
+  var celll = row.insertCell(0);
+var celll2 = row.insertCell(1);
+var celll3 = row.insertCell(2)
+  celll.innerHTML = "<b>RoomName</b>";
+celll2.innerHTML = "<b>theme</b>";
+celll3.innerHTML = "<b>In room party</b>"
+for(var i = 0; i < array2.length; i++)
+{
+  // create a new row
+  var newRow = table.insertRow(table.length);
+  for(var j = 0; j < 2; j++)
+  {
+  // create a new cell
+  var cell = newRow.insertCell(j);
+    // add value to the cell
+  if(j==0){
+    cell.innerHTML = array2[i];
+    }
+  else if(j==1){
+    cell.innerHTML = themelist2[i];
+    }
+  }
+}
+
 function roomlist() {
 	document.getElementById("myTable").innerHTML = "";
 	socket1.on('Roomlist3', function(roomidlist,themelist){

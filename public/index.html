@@ -21,7 +21,7 @@
   <!-- Main Content -->
   <div class="ui container">
     <h1 id = "simp-web">
-       Simple WebRTC Messenger
+       ShareNote Project
     </h1>
     <div class="ui two column stackable grid">
     <!--dangle??-->
@@ -96,8 +96,8 @@
   </script>
 
   </div>
-  <select id="theList" width="100px" onChange="printurl(this.value);" >
-  </select>
+  <!--<select id="theList" width="100px" onChange="printurl(this.value);" >
+  </select>-->
 
   <form action="/somewhere/to/upload" enctype="multipart/form-data" id = "myfrom"><!--上傳圖片的表單-->
   <input id="uploadImage" type="file" name="photo" accept="image/*"/>
@@ -150,15 +150,11 @@
     <button class="ui violet button" onclick="LeaveButton()"> leave </button>
     <div class="dropdown">
   <button onclick="myFunction()" class="ui teal button">Dropdown</button>
-    <div id="myDropdown" class="dropdown-content">
-      <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
-      <a href="#about">About</a>
-      <a href="#base">Base</a>
-      <a href="#blog">Blog</a>
-      <a href="#contact">Contact</a>
-      <a href="#custom">Custom</a>
-      <a href="#support">Support</a>
-      <a href="#tools">Tools</a>
+    <div id="myDropdown" class="dropdown-content" >
+      <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()" >
+      <div id="adddrop">
+      <!--<a value="volvo">About</a>-->
+      </div>
     </div>
   </div>
     </div>
