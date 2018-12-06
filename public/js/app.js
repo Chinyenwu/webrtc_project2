@@ -1,5 +1,6 @@
 const getip = Handlebars.compile($('#ipget').html());
 var s=1;
+//var socket1 = io();
 window.addEventListener('load', () => {
   // Chat platform
 
@@ -22,6 +23,8 @@ window.addEventListener('load', () => {
 	var state3;
 	var roomName3;
 	var userName3;
+  var iframelist = [];
+  const num = 0;
   // Remote Videos
   const remoteVideoTemplate = Handlebars.compile($('#remote-video-template').html());
   const remoteVideosEl = $('#remote-videos');
@@ -233,8 +236,13 @@ socket.on('iframeget', function(index){
 });
 function myFunction() {
     document.getElementById("myDropdown").classList.toggle("show");
+    $('#myInput').show();
+    $('#adddrop').show();
     var myDropdownn = $('#myDropdown');
+    $("#adddrop").empty();
     var i=0;
+    var k=0;
+    var flag = 1;
     axios.get("http://140.136.150.93/upload/GET/notedrop/")
     .then((response)=>{
       for(i=0;i< response.data.length;i++){
@@ -244,7 +252,13 @@ function myFunction() {
         var value3 = response.data[i].title;
         var url = "http://140.136.150.93:3000/note/"+value+"/"+value2+"?p=frame";
         Option.onclick = printurl(value);
-        myDropdownn.append(new Option(value3,url));
+        $('#adddrop').append(new Option(value3,url));
+        $('#adddrop').on('click','option',function(){
+          printurl(this.value);
+          console.log(this.value);
+          $('#adddrop').hide();
+          $('#myInput').hide();
+        });
         //myDropdownn.append(new Option(value,url));
       }
       console.log(response.data);
