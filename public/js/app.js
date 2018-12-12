@@ -1,5 +1,6 @@
 const getip = Handlebars.compile($('#ipget').html());
 var s=1;
+
 //var socket1 = io();
 window.addEventListener('load', () => {
   // Chat platform
@@ -10,11 +11,14 @@ window.addEventListener('load', () => {
   const formEl = $('.form');
   const messages = [];
   let username;
-
+  //canvas
+  var c = document.getElementById("myCanvas");
+  var ctx = c.getContext("2d");
   // Local Video
   const localImageEl = $('#local-image');
   const localVideoEl = $('#local-video');
   const canvass = $('#myCanvas');
+  const roomiframem = $('#roomiframe');
   var theListt = $('#theList');
   const iframee = $('#crop');
   const myfromm = $('#myfrom');
@@ -31,6 +35,7 @@ window.addEventListener('load', () => {
   let remoteVideosCount = 0;
 
   // Hide cameras until they are initialized
+  roomiframem.hide();
   localVideoEl.hide();
   canvass.hide();
   iframee.hide();
@@ -63,7 +68,22 @@ window.addEventListener('load', () => {
     detectSpeakingEvents: true,
     autoAdjustMic: false,
   });
+ // authorize
+ /*
+ var t = document.cookie.split('; ').find(function(element) {
+     return element.includes("accesstoken") == true;
+ });
 
+ axios.get('http://'+location.hostname+ '/api/hello/',{ headers: { Authorization:"Bearer "+  t.split("=").pop()} })
+     .then((response)=> {
+
+         console.log(response.data) //使用者資料
+
+     })
+     .catch(function (error) {
+         console.log("Get User Autherrize error"+ error);
+ });
+ */
   // We got access to local camera
   webrtc.on('localStream', () => {
     localImageEl.hide();
@@ -113,8 +133,9 @@ window.addEventListener('load', () => {
     updateChatMessages();
   };
 
-  // Display Chat Interface
+  // Display Chat Interfaces
   const showChatRoom = (room) => {
+    roomiframem.hide();
     canvass.show();
     myfromm.show();
     iframee.show();
@@ -184,6 +205,8 @@ window.addEventListener('load', () => {
     // eslint-disable-next-line no-console
     //console.log(`Joining Room: ${roomName}`);
     //canvass.show();
+    //
+    //
     webrtc.joinRoom(roomName);
     showChatRoom(roomName);
     postMessage(`${username} joined chatroom`);
@@ -206,8 +229,22 @@ window.addEventListener('load', () => {
     if (!formEl.form('is valid')) {
       return false;
     }
-  username = $('#username').val();
-	theme = $('#theme').val();
+    username = $('#username').val();
+    var t = document.cookie.split('; ').find(function(element) {
+    return element.includes("accesstoken") == true;
+    });
+    console.log(t);
+    axios.get('http://'+location.hostname+ '/api/hello/',{ headers: { Authorization:"Bearer "+  t.split("=").pop()} })
+    .then((response)=> {
+
+        console.log(response.data[0].username); //使用者資料
+        username = response.data[0].username;
+    })
+    .catch(function (error) {
+        console.log("Get User Autherrize error"+ error);
+      });
+	  theme = $('#theme').val();
+
     const roomName = $('#roomName').val().toLowerCase();
     if (event.target.id === 'create-btn') {
       createRoom(roomName);
@@ -266,8 +303,24 @@ function myFunction() {
     .catch(function (error) {
       console.log(error);
     });
+    // iframe to canvas
+    var myIframe = 'http://140.136.150.93:3000/note/9av2ma/ej2Dle?p=frame';
+    iframe2image(myIframe,cb);
 }
-
+// iframe to canvas
+/*
+var inner = document.getElementById('crop');
+iframe2image(inner, function (err, img) {
+ // If there is an error, log it
+ if (err) { return console.error(err); }
+ // Otherwise, add the image to the canvas
+ console.log(img);
+ ctx.drawImage(img, 0, 0);
+ });
+*/
+function showroom(){
+  $('#roomiframe').toggle();
+}
 function filterFunction() {
     var input, filter, ul, li, a, i;
     input = document.getElementById("myInput");
