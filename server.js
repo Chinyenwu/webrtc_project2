@@ -23,6 +23,7 @@ axios.get("http://140.136.150.93/upload/GET/notedrop/")
   console.log(error);
 });
 
+
 // Redirect all traffic to index.html
 app.use((req, res) => res.sendFile(`${__dirname}/public/index.html`));
 
