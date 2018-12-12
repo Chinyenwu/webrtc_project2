@@ -17,25 +17,25 @@
   </style>
 </head>
 <body>
-
   <!-- Main Content -->
   <div class="ui container">
-    <h1 id = "simp-web">
-       ShareNote Project
-    </h1>
     <div class="ui two column stackable grid">
+
     <!--dangle??-->
     </div>
   <!-- Chat Section -->
   <div class="ui ten wide column">
+    <img src="http://140.136.150.93/media/logo.png"   >
+    </img>
     <div class="ui inverted segment">
       <!-- Chat Room Form -->
       <div class="ui inverted form">
         <div class="two fields">
-          <div class="field">
+
+          <!--<div class="field">
             <label>User Name</label>
             <input type="text" placeholder="Enter user name" id="username" name="username">
-          </div>
+          </div>-->
           <div class="field">
             <label>Room</label>
             <input type="text" placeholder="Enter room name" id="roomName" name="roomName">
@@ -51,7 +51,8 @@
           <div class="or"></div>
           <div id="join-btn" class="ui submit violet button">Join Room</div>
           <div class="or"></div>
-          <a href="show_room.html" class="ui blue button" target="_blank">Show Room</a>
+          <!--<a href="show_room.html" class="ui blue button" target="_blank">Show Room</a>-->
+          <div onclick="showroom()" class="ui blue button" >Show Room</div>
         </div>
       </div>
       <!-- Chat Room Messages -->
@@ -60,6 +61,7 @@
       <!-- Local Camera -->
     <!-- TEMPLATES -->
       <!-- Remote Video Template -->
+      <iframe id="roomiframe" name="roomiframe" src="https://140.136.150.93:3232/show_room.html" width="1120" height="1000" scrolling="yes" align="center" ></iframe>
   </div>
   <!-- End of Chat Section -->
       <!--canvas-->
@@ -81,9 +83,9 @@
       </h4>
     </div>
     <h3 class="ui center aligned header">Remote Cameras</h3>
-    <!-- Remote Cameras -->
   </div>
 
+  <!-- Remote Cameras -->
 <!--http://140.136.150.93:3000/note/vbmOeY/lejvYe-->
 <!--canvas-->
   <script src="script/domvas.js"></script>
@@ -91,18 +93,17 @@
   <div id="sideBside">
   <canvas id="myCanvas" width="800" height="500" style="border:2px solid #d3d3d3;" align="left">
   </canvas>
+  <!--<iframe id="crop" name="crop" src="{{ip}}" width="700" height="500" scrolling="yes"  style="position:absolute;z-index: -1;left: 50px;top: 300px;" ></iframe>-->
   <script id="ipget" type="text/x-handlebars-template">
   <iframe id="crop" name="crop" src="{{ip}}" width="700" height="500" scrolling="yes" align="right" ></iframe>
   </script>
 
   </div>
-  <!--<select id="theList" width="100px" onChange="printurl(this.value);" >
-  </select>-->
-
+  <select id="theList" width="100px" onChange="printurl(this.value);" >
+  </select>
   <form action="/somewhere/to/upload" enctype="multipart/form-data" id = "myfrom"><!--上傳圖片的表單-->
   <input id="uploadImage" type="file" name="photo" accept="image/*"/>
   </form>
-
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.5/socket.io.min.js"></script>
   <script type="text/javascript" src="script/paint.js"></script>
@@ -156,6 +157,7 @@
       <!--<a value="volvo">About</a>-->
       </div>
     </div>
+    <button onclick="iframeshow()" class="ui teal button">iframe</button>
   </div>
     </div>
 </script>
