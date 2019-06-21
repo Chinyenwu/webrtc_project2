@@ -1,5 +1,5 @@
 
-var socket = io.connect('https://140.136.150.93:3232', {secure: true});
+var socket = io.connect('https://140.136.150.93:3232', {secure: true});//這裡的網址要改成現在這台電腦的網址
 //var socket = io();
 //參數
 var c = document.getElementById("myCanvas");
