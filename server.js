@@ -7,7 +7,7 @@ var app = express();
 var https = require('https');
 
 var port = process.env.PORT ||3232;
-var ip = '140.136.150.93';
+var ip = '140.136.150.93';//這裡的網址要改成現在這台電腦的網址
 // Set public folder as root
 
 app.use(express.static('public'));
@@ -15,7 +15,7 @@ app.use(express.static('public'));
 // Provide access to node_modules folder from the client-side
 app.use('/scripts', express.static(`${__dirname}/node_modules/`));
 //http://140.136.150.93/upload/index/
-axios.get("http://140.136.150.93/upload/GET/notedrop/")
+axios.get("http://140.136.150.93/upload/GET/notedrop/")//這裡的網址要改成現在這台電腦的網址
 .then(function (response) {
   console.log(response.data);
 })
