@@ -1,3 +1,4 @@
-¨Ï¥Î®É°õ¦æ node servere.js
-server.js©Mpaint.js­n§ïºô§}
-¦bÂsÄı¾¹¥´¤Wºô§}:3232´N¯à¥Î¤F¡A¸Ô±¡½Ğ¨£³ø§i®Ñµø°Tª½¼½ªº³¡¤À
+ä½¿ç”¨æ™‚åŸ·è¡Œ node servere.js
+server.jså’Œpaint.jsè¦æ”¹ç¶²å€
+åœ¨ç€è¦½å™¨æ‰“ä¸Šç¶²å€:3232å°±èƒ½ç”¨äº†ï¼Œè©³æƒ…è«‹è¦‹å ±å‘Šæ›¸è¦–è¨Šç›´æ’­çš„éƒ¨åˆ†
+https://docs.google.com/document/d/1-lQLXgoc-WTng-bY3R-o7PyBo42RVBs_i3Fg1RBQYgg/edit?usp=sharing
